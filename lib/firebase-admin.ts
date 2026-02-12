@@ -1,6 +1,6 @@
-import { initializeApp, getApps, cert, ServiceAccount } from 'firebase-admin/app';
-import { getFirestore } from 'firebase-admin/firestore';
-import { getAuth } from 'firebase-admin/auth';
+import { initializeApp, getApps, cert, ServiceAccount, App } from 'firebase-admin/app';
+import { getFirestore, Firestore } from 'firebase-admin/firestore';
+import { getAuth, Auth } from 'firebase-admin/auth';
 
 // Check if Firebase Admin credentials are available
 const hasCredentials = 
@@ -8,9 +8,9 @@ const hasCredentials =
   process.env.FIREBASE_CLIENT_EMAIL && 
   process.env.FIREBASE_PRIVATE_KEY;
 
-let adminApp: any = null;
-let adminDb: any = null;
-let adminAuth: any = null;
+let adminApp: App | null = null;
+let adminDb: Firestore | null = null;
+let adminAuth: Auth | null = null;
 
 if (hasCredentials) {
   const serviceAccount: ServiceAccount = {

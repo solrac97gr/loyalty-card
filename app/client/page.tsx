@@ -1,11 +1,16 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import Image from 'next/image';
+import { useState } from 'react';
 
 export default function ClientPage() {
   const [email, setEmail] = useState('');
-  const [card, setCard] = useState<any>(null);
+  const [card, setCard] = useState<{
+    id: string;
+    email: string;
+    points: number;
+    coffeeCount: number;
+    qrCodeImage?: string;
+  } | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -38,7 +43,7 @@ export default function ClientPage() {
       } else {
         setError('Failed to fetch loyalty card');
       }
-    } catch (err) {
+    } catch {
       setError('An error occurred. Please try again.');
     } finally {
       setLoading(false);
@@ -111,6 +116,7 @@ export default function ClientPage() {
                 </h3>
                 <div className="flex justify-center">
                   {card.qrCodeImage && (
+                    // eslint-disable-next-line @next/next/no-img-element
                     <img 
                       src={card.qrCodeImage} 
                       alt="QR Code" 

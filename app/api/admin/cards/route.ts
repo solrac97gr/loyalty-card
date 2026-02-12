@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { adminDb } from '@/lib/firebase-admin';
+import type { QueryDocumentSnapshot } from 'firebase-admin/firestore';
 
 export async function GET() {
   try {
@@ -10,7 +11,7 @@ export async function GET() {
     const cardsRef = adminDb.collection('loyaltyCards');
     const snapshot = await cardsRef.orderBy('updatedAt', 'desc').get();
 
-    const cards = snapshot.docs.map((doc: any) => {
+    const cards = snapshot.docs.map((doc: QueryDocumentSnapshot) => {
       const data = doc.data();
       return {
         id: doc.id,

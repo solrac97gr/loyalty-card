@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { adminDb } from '@/lib/firebase-admin';
+import type { QueryDocumentSnapshot } from 'firebase-admin/firestore';
 
 export async function GET() {
   try {
@@ -10,7 +11,7 @@ export async function GET() {
     const transactionsRef = adminDb.collection('transactions');
     const snapshot = await transactionsRef.orderBy('timestamp', 'desc').limit(50).get();
 
-    const transactions = snapshot.docs.map((doc: any) => {
+    const transactions = snapshot.docs.map((doc: QueryDocumentSnapshot) => {
       const data = doc.data();
       return {
         id: doc.id,

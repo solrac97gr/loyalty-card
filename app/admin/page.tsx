@@ -44,8 +44,8 @@ export default function AdminPage() {
         const data = await response.json();
         setCards(data.cards);
       }
-    } catch (err) {
-      console.error('Failed to fetch cards:', err);
+    } catch (error) {
+      console.error('Failed to fetch cards:', error);
     }
   };
 
@@ -56,8 +56,8 @@ export default function AdminPage() {
         const data = await response.json();
         setTransactions(data.transactions);
       }
-    } catch (err) {
-      console.error('Failed to fetch transactions:', err);
+    } catch (error) {
+      console.error('Failed to fetch transactions:', error);
     }
   };
 
@@ -82,7 +82,7 @@ export default function AdminPage() {
       } else {
         setMessage(`❌ ${data.error}`);
       }
-    } catch (err) {
+    } catch {
       setMessage('❌ An error occurred. Please try again.');
     } finally {
       setLoading(false);
