@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { adminDb } from '@/lib/firebase-admin';
 import QRCode from 'qrcode';
+import { randomUUID } from 'crypto';
 
 export async function POST(request: NextRequest) {
   try {
@@ -26,8 +27,8 @@ export async function POST(request: NextRequest) {
       });
     }
 
-    // Create new loyalty card
-    const cardId = `CARD-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    // Create new loyalty card with cryptographically secure ID
+    const cardId = `CARD-${randomUUID()}`;
     const qrCodeData = await QRCode.toDataURL(cardId);
 
     const newCard = {
